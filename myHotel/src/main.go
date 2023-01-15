@@ -16,7 +16,6 @@ import (
 )
 
 func main() {
-	//preCheck()
 	clearScr()
 	greet()
 	menu := decideMenu()
@@ -59,15 +58,6 @@ type Bill struct {
 	Qty  int
 }
 
-//	func preCheck() {
-//		if runtime.GOOS != "linux" {
-//			clearScr()
-//			fmt.Println("Unsupported Platform:", runtime.GOOS)
-//			fmt.Println("Supported Platform: linux only with kitty terminal")
-//			showCursor()
-//			os.Exit(0)
-//		}
-//	}
 func hideCursor() {
 	fmt.Print("\033[?25l")
 }
@@ -98,10 +88,6 @@ func fetchVar() string {
 	input, err := reader.ReadString('\n')
 	checkErr(err, "fetchVar()-->bufio")
 	return strings.TrimSpace(input)
-}
-func notifyErr(message string) {
-	// cmd := exec.Command("notify-send", message)
-	// checkErr(cmd.Run(), "notifyErr()-->cmd.Run()")
 }
 func isItVeg(checkDish string) string {
 	switch checkDish {
@@ -142,11 +128,9 @@ func userInputHandler01() int {
 		quit()
 	case "":
 		fmt.Print(pterm.Error.Sprint("Empty input!"), "\n\n")
-		notifyErr("Empty input!")
 		return 0
 	default:
 		fmt.Print(pterm.Error.Sprint("Invalid input!"), "\n\n")
-		notifyErr("Invalid input!")
 		return 0
 	}
 	return 0
@@ -247,17 +231,14 @@ func userInputHandler02(lim int) int {
 		quit()
 	case "":
 		fmt.Print(pterm.Error.Sprint("Empty input!"), "\n\n")
-		notifyErr("Empty input!")
 		return 0
 	default:
 		intChoice, err := strconv.Atoi(choice)
 		if err != nil || intChoice <= 0 {
 			fmt.Print(pterm.Error.Sprint("Invalid input!"), "\n\n")
-			notifyErr("Invalid input!")
 			return 0
 		} else if intChoice > lim {
 			fmt.Print(pterm.Error.Sprint("Input out of range!"), "\n\n")
-			notifyErr("Input out of range!")
 			return 0
 		}
 		return intChoice + 1234
@@ -269,13 +250,11 @@ func userInputHandler03() int {
 	switch choice := fetchVar(); choice {
 	case "":
 		pterm.Error.Println("Empty input!")
-		notifyErr("Empty input!")
 		return 0
 	default:
 		intChoice, err := strconv.Atoi(choice)
 		if err != nil || intChoice < 0 {
 			pterm.Error.Println("Invalid input!")
-			notifyErr("Invalid input!")
 			return 0
 		}
 		return intChoice + 1234
@@ -296,7 +275,6 @@ func takeOrder(menu map[int]Menu) map[int]Bill {
 				stopper = true
 			} else {
 				fmt.Print(pterm.Error.Sprint("No Dishes ordered, instead enter 'exit' to quit"), "\n\n")
-				notifyErr("No Dishes ordered, instead enter 'exit' to quit")
 			}
 		default:
 			choice -= 1234
@@ -365,17 +343,14 @@ func userInputHandler04(lim int) int {
 	switch choice := fetchVar(); choice {
 	case "":
 		pterm.Error.Println("Empty input!")
-		notifyErr("Empty input!")
 		return 0
 	default:
 		intChoice, err := strconv.Atoi(choice)
 		if err != nil || intChoice < 0 {
 			pterm.Error.Println("Invalid input!")
-			notifyErr("Invalid input!")
 			return 0
 		} else if intChoice > lim {
 			pterm.Error.Println("Input out of range!")
-			notifyErr("Input out of range!")
 			return 0
 		}
 		return intChoice + 1234
@@ -428,7 +403,6 @@ func letsDel(bill map[int]Bill) map[int]Bill {
 			for _, removedItem := range history {
 				if choice == removedItem {
 					fmt.Print(pterm.Error.Sprintfln("dish %d was already removed from bill, Enter 'done' to print the new bill", choice), "\n")
-					notifyErr(fmt.Sprintf("dish %d was already removed from bill, Enter 'done' to print the new bill", choice))
 					break switchBlock
 				}
 			}
