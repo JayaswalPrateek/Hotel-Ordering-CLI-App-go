@@ -70,7 +70,7 @@ func clearScr() {
 }
 func quit() {
 	clearScr()
-	pterm.DefaultCenter.Print(pterm.Italic.Sprint("Thanks for visiting us, do come back later 😚️"))
+	pterm.DefaultCenter.Print(pterm.Italic.Sprint("Thank you for visiting us, do come back later 😚️"))
 	showCursor()
 	os.Exit(0)
 }
@@ -394,7 +394,7 @@ func letsDel(bill map[int]Bill) map[int]Bill {
 			} else {
 				clearScr()
 				pterm.DefaultCenter.Print(pterm.Italic.Sprint("😭️ All Items Removed from cart 😭️"))
-				pterm.DefaultCenter.Print(pterm.Italic.Sprint("Thanks for visiting us, do come back later 😚️"))
+				pterm.DefaultCenter.Print(pterm.Italic.Sprint("Thank you/> for visiting us, do come back later 😚️"))
 				showCursor()
 				os.Exit(0)
 			}
